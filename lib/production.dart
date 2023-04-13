@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:timeline/native.dart';
+import 'constant.dart';
 
 class Production extends StatefulWidget {
   const Production({super.key});
@@ -14,15 +15,19 @@ class _ProductionState extends State<Production> {
   String _line = "70.8";
   String _errorMessage = "";
   bool _insertData = false;
+  final double _widthColumn = 500;
+  final double _heighRow = 300;
 
   @override
   void initState() {
     super.initState();
   }
 
+  
+
   Future displayDatePicker(BuildContext context) async {
     /*
-    Function to display en register the date
+    Function to display and register the date
     */
     var date = await showDatePicker(
       context: context,
@@ -102,11 +107,14 @@ class _ProductionState extends State<Production> {
       onPressed: () => showDialog(
         context: context,
         builder: (BuildContext context) => AlertDialog(
-          title: const Text("line"),
+          title: Text(
+            "line",
+            style: tStyle,
+          ),
           content: StatefulBuilder(
             builder: (BuildContext context, StateSetter setState) => SizedBox(
               width: 100,
-              height: 100,
+              height: 500,
               child: SingleChildScrollView(
                 child: Column(children: listViewLine(setState)),
               ),
@@ -120,32 +128,122 @@ class _ProductionState extends State<Production> {
           ],
         ),
       ),
-      child: const Text("Change line"),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(Icons.ads_click),
+          Text(
+            "Change line",
+            style: tStyle,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget datePicker() {
+    return Column(
+      children: [
+        TextButton(
+          onPressed: () {
+            displayDatePicker(context);
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(Icons.ads_click),
+              Text(
+                "Change Date",
+                style: tStyle,
+              ),
+            ],
+          ),
+        ),
+        Text(
+          _currentDate,
+          style: tStyle,
+        )
+      ],
+    );
+  }
+
+  Widget timePicker() {
+    return Column(
+      children: [
+        TextButton(
+          onPressed: () {
+            displayTimePicker(context);
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(Icons.ads_click),
+              Text(
+                "Change Time",
+                style: tStyle,
+              ),
+            ],
+          ),
+        ),
+        Text(
+          _currentTime,
+          style: tStyle,
+        )
+      ],
+    );
+  }
+
+  Widget linePicker() {
+    return Column(children: [
+      productionLine(context),
+      Text(
+        _line,
+        style: tStyle,
+      )
+    ]);
+  }
+
+  Widget selectDateAndTime() {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      height: _heighRow,
+      width: _widthColumn,
+      decoration: BoxDecoration(border: Border.all(color: Colors.black)),
+      child: Column(
+        children: [
+          datePicker(),
+          const Spacer(
+            flex: 1,
+          ),
+          timePicker(),
+          const Spacer(
+            flex: 1,
+          ),
+          linePicker(),
+        ],
+      ),
+    );
+  }
+
+  Widget qrCodeHandler() {
+    return Container(
+      height: _heighRow,
+      width: _widthColumn,
+      decoration: BoxDecoration(border: Border.all(color: Colors.black)),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: <Widget>[
-        TextButton(
-          onPressed: () {
-            displayDatePicker(context);
-            displayTimePicker(context);
-          },
-          child: const Text("Change Date & Time"),
-        ),
-        Text("$_currentDate $_currentTime"),
-        productionLine(context),
-        Text(_line),
-        Container(
-          decoration: BoxDecoration(
-            border: Border.all(width: 1, color: Colors.black),
+      children: [
+        Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: selectDateAndTime(),
           ),
-          child: Text(
-            "message : $_errorMessage",
-          ),
-        ),
+          qrCodeHandler(),
+        ]),
         ElevatedButton(
           child: const Icon(Icons.send),
           onPressed: () async {

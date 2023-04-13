@@ -38,6 +38,7 @@ dependencies:
   ffi: ^2.0.1
   flutter_rust_bridge: ^1.72.1
   freezed_annotation: ^2.2.0
+  qr_flutter: ^4.0.0
 
 dev_dependencies:
   flutter_test:

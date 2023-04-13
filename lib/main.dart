@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:timeline/native.dart';
 import 'package:timeline/production.dart';
 import 'package:timeline/quality.dart';
 
@@ -18,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'New Timeline'),
     );
   }
 }
@@ -39,24 +38,26 @@ class _MyHomePageState extends State<MyHomePage> {
       initialIndex: 0,
       length: 2,
       child: Scaffold(
-          appBar: AppBar(
-            title: Text(widget.title),
-            bottom: const TabBar(
-              tabs: <Widget>[
-                Tab(
-                  child: Text("Quality"),
-                ),
-                Tab(
-                  child: Text("Production"),
-                )
-              ],
-            ),
+        appBar: AppBar(
+          title: Text(widget.title),
+          bottom: const TabBar(
+            tabs: <Widget>[
+              Tab(
+                child: Text("Quality"),
+              ),
+              Tab(
+                child: Text("Production"),
+              )
+            ],
           ),
-          body: const TabBarView(children: <Widget>[
-            Center(child: Quality()),
-            Center(child: Production())
-          ])
-          ),
+        ),
+        body: const TabBarView(
+          children: <Widget>[
+            Quality(),
+            Production(),
+          ],
+        ),
+      ),
     );
   }
 }
