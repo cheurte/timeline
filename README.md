@@ -1,6 +1,8 @@
-# timeline
+# Timeline
 
-A new Flutter project.
+Project for BIOTEC, the point is to replace and make easier the possibility to take and analyze a sample at a given time. It is not meant to be put into production yet, it has just been working for a demo. A few problems were also not being resolved:
+At Biotec, all the database are working under the ODBC drivers. And I could not figured how to compile them for the apk version.
+Anyway, this project is not maintained anymore.
 
 ## Getting Started
 
